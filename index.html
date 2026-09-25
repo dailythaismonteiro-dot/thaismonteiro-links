@@ -9,6 +9,19 @@
   gtag('js', new Date());
   gtag('config', 'G-D4TF8556LT');
 </script>
+<!-- rastreio de cliques no whatsapp (GA + pixel meta) -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.href, ev = null;
+    if (/chat\.whatsapp\.com|whatsapp\.com\/channel/.test(h)) ev = 'entrou_grupo';
+    else if (/wa\.me|api\.whatsapp\.com/.test(h)) ev = 'clique_whatsapp';
+    if (!ev) return;
+    if (window.gtag) gtag('event', ev, { link_url: h, transport_type: 'beacon' });
+    if (window.fbq) fbq('track', 'Lead', { content_name: ev });
+  }, true);
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>meus links · thaís monteiro</title>
